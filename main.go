@@ -20,5 +20,5 @@ func main(){
 
 func index(w http.ResponseWriter, req *http.Request){
 	//fmt.Fprint(w, "Hello World")
-	http.ServeFile(w, req, "./index.html")
+	http.ServeFile(w, req, "./index1.html")
 }

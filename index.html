@@ -7,6 +7,10 @@
 <div>
   <table id="ToDoList" width="400px"> </table>
 </div>
+<div>
+  <ul id="mytodos" >
+  </ul>
+
 <div id= "total"> </div>
 
 <script>
@@ -43,16 +47,19 @@
       cell.appendChild(element3);
 
       updtodo();
-      document.getElementById("mytodo").value="";
-      arr.push({id: rowCount, name: value, status: false});
+      mytodo.value="";
+      arr.push({id: rowCount, name: value, status: false}) //new item(rowCount,value,"unchecked"));
       var but = document.getElementById("" + rowCount);
       but.addEventListener("click", delTodo);
   }
 }
 
 function delTodo(e){
+  console.log(e);
   var todie= parseInt(e.target.id);
+  console.log(todie);
   arr.splice(todie,1);
+
   table.deleteRow(todie-1);
   updtodo();
 }
@@ -62,10 +69,9 @@ function updtodo(){
   rowCount= table.rows.length;
   for(var i=1; i<= rowCount;i++){
       temp= document.getElementById("ch"+i);
-      if(temp.checked){
+      console.log();
+      if(temp.checked)
         ccount++;
-        arr[i-1].status= true;
-      }
   }
   var icount= rowCount- ccount;
   total.innerText = "Total tasks: " + rowCount + " Completed tasks: " + ccount + " Incomplete tasks: " + icount;
