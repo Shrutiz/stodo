@@ -5,12 +5,9 @@
 <body>
 <input id= "mytodo" type="text">
 <div>
-  <table id="ToDoList" width="350px">
-  </table>
+  <table id="ToDoList" width="400px"> </table>
 </div>
 <div id= "total"> </div>
-<div id= "comp"> </div>
-<div id= "incomp"> </div>
 
 <script>
   var mytodo = document.getElementById("mytodo");
@@ -20,76 +17,59 @@
   var rowCount = table.rows.length;
 
   function addTodo(e){
-    var value = mytodo.value;
-
+  var value = mytodo.value;
     if(e.which != 13){
       return
     }
 
     if(value !== "") {
       var row = table.insertRow(rowCount);
-      var cell1 = row.insertCell(0);
+      var cell = row.insertCell();
       var element1= document.createElement("input");
       element1.type= "checkbox";
       element1.id= "ch"+(rowCount+1);
-      cell1.appendChild(element1);
+      cell.appendChild(element1);
       var chck = document.getElementById("ch"+(rowCount+1));
-      chck.addEventListener("click",updchec);
+      chck.addEventListener("click",updtodo);
 
-      var cell2= row.insertCell(1);
       var element2= document.createElement("label");
-      var desc= document.createTextNode(value);
-      element2.appendChild(desc);
-      cell2.appendChild(element2);
+      element2.innerHTML= value + " ";
+      cell.appendChild(element2);
 
-      var cell3= row.insertCell(2);
       var element3= document.createElement("input");
       element3.type="button";
       element3.id= ""+(rowCount+1);
       element3.value= "X";
-      cell3.appendChild(element3);
+      cell.appendChild(element3);
 
-      updatetotal();
-      updchec();
-
+      updtodo();
       document.getElementById("mytodo").value="";
-
-      arr.push({id: rowCount, name: value, status: "unchecked"}) //new item(rowCount,value,"unchecked"));
-
+      arr.push({id: rowCount, name: value, status: false});
       var but = document.getElementById("" + rowCount);
       but.addEventListener("click", delTodo);
   }
 }
 
 function delTodo(e){
-  var temp= e.target.id;
-  var todie= parseInt(temp);
+  var todie= parseInt(e.target.id);
   arr.splice(todie,1);
   table.deleteRow(todie-1);
-  updatetotal();
-  updchec();
+  updtodo();
 }
 
-function updchec(){
-  var temp;
-  var ccount=0;
+function updtodo(){
+  var temp, ccount=0;
   rowCount= table.rows.length;
   for(var i=1; i<= rowCount;i++){
       temp= document.getElementById("ch"+i);
-      if(temp.checked)
+      if(temp.checked){
         ccount++;
+        arr[i-1].status= true;
+      }
   }
   var icount= rowCount- ccount;
-  comp.innerText = "Completed tasks: " + ccount;
-  incomp.innerText = "Incomplete tasks: " + icount;
+  total.innerText = "Total tasks: " + rowCount + " Completed tasks: " + ccount + " Incomplete tasks: " + icount;
 }
-
-function updatetotal(){
-  rowCount = table.rows.length;
-  total.innerText = "Total tasks: " + rowCount;
-}
-
 </script>
-
 </body>
 </html>
