@@ -1,0 +1,59 @@
+<html>
+<head><title> To-Do</title>
+  <h1> To do list </h1>
+</head>
+<body>
+<input id= "mytodo" type="text">
+<div>
+  <ul id="mytodos" >
+  </ul>
+<div id= "total"> </div>
+
+<script>
+  var arr = [];
+  var mytodo = document.getElementById("mytodo");
+  mytodo.addEventListener("keypress",addTodo);
+  var mytodos= document.getElementById("mytodos");
+  mytodos.addEventListener("click", delTodo);
+
+  function addTodo(e){
+    var value = mytodo.value;
+
+    if(e.which !== 13 || value ==""){
+      return
+    }
+      var todo = { id: arr.length+1, name: value, status: false};
+      arr.push(todo);
+      var button = '<input type="button" name=value value="X">';
+
+      var ch = '<input type="checkbox" name= value >';
+      var items = arr.map(function(item) {
+         return '<li id=' + item.id + '>' + ch + item.name + button +  '</li>';
+       });
+
+      mytodos.innerHTML= items.join("");
+      console.log(arr.length);
+      mytodo.value="";
+}
+
+
+function delTodo(e){
+  console.log(e);
+
+}
+
+function updtodo(){
+  var temp, ccount=0;
+  rowCount= table.rows.length;
+  for(var i=1; i<= rowCount;i++){
+      temp= document.getElementById("ch"+i);
+      console.log();
+      if(temp.checked)
+        ccount++;
+  }
+  var icount= rowCount- ccount;
+  total.innerText = "Total tasks: " + rowCount + " Completed tasks: " + ccount + " Incomplete tasks: " + icount;
+}
+</script>
+</body>
+</html>
